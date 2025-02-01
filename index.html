@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Extractor Tool</title>
+    <meta name="description" content="Extract emails from your text securely and locally without any server interaction.">
+    <meta name="keywords" content="email extractor, email parser, cybersecurity, online tool, text processing, security, web application">
+    <meta name="author" content="AmitDas">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #2b2f3a;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .header img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            vertical-align: middle;
+        }
+        #title {
+            margin-top: 60px;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        #wrapper {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+        }
+        textarea {
+            width: 48%;
+            height: 200px;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            background-color: #1e2129;
+            color: #ddd;
+            border: none;
+            border-radius: 4px;
+            overflow: auto;
+        }
+        .copy-button {
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4caf50; /* Green background */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .description {
+            margin-top: 20px;
+            text-align: center;
+            width: 80%;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+      <a href="https://github.com/AmitDas4321" target="_blank">
+        <img
+          src="https://avatars.githubusercontent.com/u/112541611?v=4"
+          alt="GitHub Profile Icon"
+        />
+        Amit Das
+      </a>
+    </div>
+
+    <div id="title">Email Extractor Tool</div>
+
+    <div id="wrapper">
+        <textarea id="textInput" placeholder="Enter text with emails here..."></textarea>
+        <textarea id="emailOutput" placeholder="Extracted emails will appear here..." readonly></textarea>
+    </div>
+
+    <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+
+    <div class="description">
+        <p>
+            Paste your text in the left box and see extracted emails on the right. Use the button below to copy the results.
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('textInput').addEventListener('input', function() {
+            var inputText = this.value;
+            var emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+            var emails = inputText.match(emailRegex);
+            document.getElementById('emailOutput').value = emails ? emails.join('\n') : "No emails found.";
+        });
+
+        function copyToClipboard() {
+            var outputText = document.getElementById('emailOutput');
+            outputText.select();
+            navigator.clipboard.writeText(outputText.value)
+                .then(() => alert('Copied to clipboard!'))
+                .catch((err) => console.error('Error in copying text: ', err));
+        }
+    </script>
+</body>
+</html>
